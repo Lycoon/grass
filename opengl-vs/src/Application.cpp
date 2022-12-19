@@ -78,7 +78,7 @@ int main()
     {
         for (float z = -10.0f; z < 10.0f; z += 0.2f)
         {
-            grid.push_back(glm::vec3(x, 0, z));
+            grid.push_back({ x, 0, z });
         }
     }
     
@@ -95,47 +95,40 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // textures
-    /*
-    unsigned int texture1 = loadTexture("./assets/grass_texture.png");
+    unsigned int texture1 = loadTexture("./assets/grass.png");
     pipeline.use();
     pipeline.setInt("uTextGrass", 0);
 
     unsigned int texture2 = loadTexture("./assets/flowmap.png");
     pipeline.use();
     pipeline.setInt("uWind", 1);
-    */
 
     glPointSize(5.0f);
     while (!glfwWindowShouldClose(window))
     {
         // delta time
-        float currDelta = glfwGetTime();
-        deltaTime = currDelta - lastDelta;
-        lastDelta = currDelta;
+        float currTime = glfwGetTime();
+        deltaTime = currTime - lastDelta;
+        lastDelta = currTime;
         camera.updateSpeed(deltaTime);
         
         // input
         processInput();
-
-        // textures
-        /*
+        
+        // updating uniforms
+		view = camera.getView();
+		pipeline.setMat4("uView", glm::value_ptr(view));
+		pipeline.setFloat("uTime", currTime);
+        
+        // bind textures
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
-        */
-        
-        // transforms
-		view = camera.getView();
-        proj = camera.getPerspective(aspectRatio);
-        pipeline.setMat4("uProj", glm::value_ptr(proj));
-		pipeline.setMat4("uView", glm::value_ptr(view));
-        
-		//pipeline.setVec3("uCameraPos", glm::value_ptr(camera.getPosition()));
-		//pipeline.setFloat("uTime", currDelta);
         
         // render
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         pipeline.use();
         glBindVertexArray(VAO);
         glDrawArrays(GL_POINTS, 0, grid.size());
@@ -149,10 +142,8 @@ int main()
     glDeleteBuffers(1, &VBO);
     pipeline.detach();
 
-    /*
     glDeleteTextures(1, &texture1);
     glDeleteTextures(1, &texture2);
-    */
 
     glfwTerminate();
     

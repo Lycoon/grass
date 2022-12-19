@@ -30,7 +30,10 @@
     <ClCompile Include="utils\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils\ImageLoader.cpp">
+    <ClCompile Include="utils\STBImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\STBInclude.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,5 +52,9 @@
     <None Include="shaders\vertex.glsl" />
     <None Include="shaders\fragment.glsl" />
     <None Include="shaders\geometry.glsl" />
+    <None Include="shaders\utils.glsl" />
+    <None Include="utils\stb_include.h">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,12 +1,12 @@
 #include "Camera.h"
 #include <iostream>
 
-Camera::Camera(): Camera(glm::vec3(0.0f, 2.0f, 3.0f))
+Camera::Camera(): Camera(glm::vec3(0.0f, 1.5f, 3.0f))
 {}
 
 Camera::Camera(glm::vec3 position): 
 	position_(position),
-	direction_(0.0f, 0.0f, -1.0f),
+	direction_(0.0f, -0.3f, -1.0f),
 	up_(0.0f, 1.0f, 0.0f),
 	fov_(DEFAULT_FOV),
 	sensitivity_(DEFAULT_SENSITIVITY),

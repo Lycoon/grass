@@ -7,7 +7,7 @@ Shader::Shader(ShaderType type, const char* path):
     id_ = compile();
 }
 
-unsigned int Shader::compile()
+std::string getFileContent(std::string path)
 {
     std::string code;
     std::ifstream file;
@@ -15,7 +15,7 @@ unsigned int Shader::compile()
     file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try
     {
-        file.open(path_);
+        file.open(path);
 
         std::stringstream shaderStream;
         shaderStream << file.rdbuf();
@@ -28,7 +28,15 @@ unsigned int Shader::compile()
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
     
-    const char* shaderCode = code.c_str();
+    return code;
+}
+
+unsigned int Shader::compile()
+{
+    std::string utilsCode = getFileContent(SHADER_UTILS);
+    std::string shaderCode_ = getFileContent(path_) + "\n\n" + utilsCode.c_str();
+    const char* shaderCode = shaderCode_.c_str();
+    
     unsigned int shaderId;
     switch (type_)
     {

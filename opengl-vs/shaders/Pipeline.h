@@ -25,6 +25,8 @@ public:
     std::string& getPath();
     
 private:
+    const std::string SHADER_UTILS = "./shaders/utils.glsl";
+
     ShaderType type_;
     std::string path_;
     unsigned int id_;

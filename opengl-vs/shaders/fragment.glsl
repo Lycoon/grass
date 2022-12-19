@@ -1,12 +1,19 @@
 #version 460 core
-out vec4 FragColor;
+out vec4 out_color;
 
-/*
-in GS_OUT {
-    
-} fs_in;
-*/
+// ins/outs
+in OUT_GEOMETRY {
+	vec2 texCoords;
+} in_fragment;
+
+// uniforms
+uniform sampler2D uTextGrass;
+
 
 void main(){
-	FragColor = vec4(0.192f, 0.608f, 0.329f, 1.0f);
+	vec4 color = texture(uTextGrass, in_fragment.texCoords);
+	if (color.a < 0.7 )
+		discard;
+
+	out_color = color;
 }

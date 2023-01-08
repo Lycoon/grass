@@ -19,6 +19,10 @@ const char* TITLE = "POGLA - Grass Simulation";
 const unsigned int SCREEN_W = 1920;
 const unsigned int SCREEN_H = 1080;
 
+// grid parameters
+const float GRID_W = 40;
+const float GRID_H = 5;
+
 // globals
 GLFWwindow* window;
 Camera camera;
@@ -44,7 +48,7 @@ int main()
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     gladLoadGL();
 
-	glfwSwapInterval(0);
+	glfwSwapInterval(1);
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
@@ -74,12 +78,10 @@ int main()
     srand(time(NULL));
 
     std::vector<glm::vec3> grid;
-    for (float x = -10.0f; x < 10.0f; x += 0.2f)
+    for (float x = -GRID_W; x < GRID_W; x += 0.2f)
     {
-        for (float z = -10.0f; z < 10.0f; z += 0.2f)
-        {
+        for (float z = -GRID_H; z < GRID_H; z += 0.2f)
             grid.push_back({ x, 0, z });
-        }
     }
     
     unsigned int VBO, VAO;
@@ -96,14 +98,11 @@ int main()
 
     // textures
     unsigned int texture1 = loadTexture("./assets/grass.png");
-    pipeline.use();
     pipeline.setInt("uTextGrass", 0);
 
-    unsigned int texture2 = loadTexture("./assets/flowmap.png");
-    pipeline.use();
+    unsigned int texture2 = loadTexture("./assets/flowmap.jpg");
     pipeline.setInt("uWind", 1);
 
-    glPointSize(5.0f);
     while (!glfwWindowShouldClose(window))
     {
         // delta time

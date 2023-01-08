@@ -55,7 +55,7 @@ void renderGrassElement(vec4 position, mat4 crossmodel, float rand)
 	texCoords[2] = vec2(0.0, 1.0);
 	texCoords[3] = vec2(1.0, 1.0);
 
-	// Animation
+	// animation
 	vec2 windDirection = vec2(1.0, 1.0);
 	float windStrength = 0.15f;
 	vec2 uv = position.xz / 10.0 + windDirection * windStrength * uTime ;

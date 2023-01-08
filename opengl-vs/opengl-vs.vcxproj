@@ -48,6 +48,7 @@
     <ProjectGuid>{f24fc5c0-530a-442d-9bc7-1bd1cc86da34}</ProjectGuid>
     <RootNamespace>openglvs</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>grass</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
